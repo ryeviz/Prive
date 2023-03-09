@@ -67,7 +67,7 @@ task_list.add_task(Task('Finish Python project', 'Complete the Python project by
 task_list.add_task(Task('Buy groceries', 'Buy groceries for the week', datetime.date(2023, 2, 27)))
 task_list.add_task(Task('Do laundry', 'Do laundry on Sunday'))
 
-
+task_manager = TaskManager()
 task_manager.add_task_list(task_list)
 
 print("All tasks:", task_manager.get_all_tasks())
