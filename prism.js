@@ -1,0 +1,3 @@
+<script>
+Prism.highlightAll();
+</script>
