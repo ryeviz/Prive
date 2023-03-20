@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Title</title>
-    <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
-
+  <meta charset="UTF-8">
+  <title>Task Manager</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.9.2/brython.min.js"></script>
 </head>
-
-<pre class="language-python">
+<body onload="brython()">
+<h1>Brython Example</h1>
+<textarea id="code" rows="10" cols="50">print("Chromehearts")</textarea>
+<br>
+<button onclick="run()">Run</button>
+<br>
+<div id="output"></div>
+<script type="text/python">
 
 import datetime
 
@@ -89,6 +91,6 @@ print("Incomplete tasks:", task_manager.get_incomplete_tasks())
 print("Completed tasks:", task_manager.get_completed_tasks())
 print("Tasks due today:", task_manager.get_tasks_due_today()) 
  
-</pre>
-
+</script>
 </html>
+
