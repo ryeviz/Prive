@@ -130,7 +130,7 @@ color: #CF2323;
 
 /* Completed */
 #completed-tasks label {
-text-decoration: line-through;
+text-decoration: blink;
 color: #888;
 }
 
