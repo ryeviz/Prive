@@ -38,18 +38,23 @@ outline: none;
 }
 
 button {
-background: none;
-border: 0px;
-color: #c8edec;
-font-size: 15px;
-width: 100px;
-margin: 10px 0 0;
-font-family: Lato, sans-serif;
-cursor: pointer;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-family: Lato, sans-serif;
+  transition-duration: 0.4s;
 }
 
 button:hover {
-color: #ffa500;
+  background-color: white;
+  color: #4CAF50;
 }
 
 /* Heading */
