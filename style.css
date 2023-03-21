@@ -88,6 +88,22 @@ color: #888;
 text-align: center;
 }
 
+.middle input[type="text"],
+.middle button {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.middle input[type="text"] {
+  width: 70%;
+  margin-right: 10px;
+}
+
+.middle button {
+  width: 20%;
+}
+
+
 
 /* New Task */
 label[for='new-task'] {
