@@ -39,22 +39,21 @@ outline: none;
 
 button {
   background-color: #4CAF50;
+  background-image: linear-gradient(to right, #4CAF50, #8BC34A);
   border: none;
   color: white;
   padding: 10px 20px;
-  text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+  font-family: Lato, sans-serif;
   margin: 4px 2px;
   cursor: pointer;
-  font-family: Lato, sans-serif;
   transition-duration: 0.4s;
 }
 
 button:hover {
-  background-color: white;
-  color: #4CAF50;
+  background-color: #8BC34A;
 }
 
 /* Heading */
