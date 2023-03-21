@@ -10,20 +10,26 @@
 
 <body>
 	<div class="container">
-		<h1>TASK MANAGER</h1>
-		<p>
-			<label for="new-task" class="middle">Add Task</label>
-			<input id="new-task" type="text">
-			<button>Add Task</button>
-		</p>
-		<h3 class="middle">To-do</h3>
-		<code>Click the checkbox if a task is completed</code>
-		<ul id="incomplete-tasks">
-		</ul>
-		<h3 class="middle">Completed Tasks</h3>
-		<ul id="completed-tasks">
-		</ul>
-	</div>
-	<script type="text/javascript" src="task-manager.js"></script>
+  <h1>To-Do List</h1>
+  <form id="new-task-form">
+    <h3>Add New Task</h3>
+    <label for="new-task">Task Name</label>
+    <input type="text" id="new-task" placeholder="Enter task name...">
+    <label for="task-desc">Task Description</label>
+    <textarea id="task-desc" placeholder="Enter task description..."></textarea>
+    <p class="middle">
+      <button id="add-task">Add Task</button>
+    </p>
+  </form>
+  <div id="task-list">
+    <h3>Task List</h3>
+    <ul id="incomplete-tasks">
+    </ul>
+    <h3>Completed</h3>
+    <ul id="completed-tasks">
+    </ul>
+  </div>
+</div>
+<script type="text/javascript" src="task-manager.js"></script>
 </body>
 </html>
