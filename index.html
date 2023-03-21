@@ -1,45 +1,29 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Task Manager</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet"
+			href="style.css"
+			type="text/css"
+			media="screen"
+			charset="utf-8">
 </head>
+
 <body>
-	<h1>Task Manager</h1>
-	<form id="add-task-form">
-		<label for="task-name">Task Name:</label>
-		<input type="text" id="task-name" required>
-		
-		<label for="task-priority">Priority:</label>
-		<select id="task-priority" required>
-			<option value="">Select Priority</option>
-			<option value="1">Low</option>
-			<option value="2">Medium</option>
-			<option value="3">High</option>
-		</select>
-		
-		<button type="submit">Add Task</button>
-	</form>
-	
-	<label for="task-filter">Filter by Priority:</label>
-	<select id="task-filter">
-		<option value="">All</option>
-		<option value="1">Low</option>
-		<option value="2">Medium</option>
-		<option value="3">High</option>
-	</select>
-	
-	<table id="task-list">
-		<thead>
-			<tr>
-				<th>Task Name</th>
-				<th>Priority</th>
-				<th>Actions</th>
-			</tr>
-		</thead>
-		<tbody></tbody>
-	</table>
-	
-	<script src="task-manager.js"></script>
+	<div class="container">
+		<p>
+			<label for="new-task" class="middle">Add Task</label>
+			<input id="new-task" type="text">
+			<button>Add Task</button>
+		</p>
+		<h3 class="middle">To-do</h3>
+		<ul id="incomplete-tasks">
+		</ul>
+		<h3 class="middle">Completed Tasks</h3>
+		<ul id="completed-tasks">
+		</ul>
+	</div>
+	<script type="text/javascript" src="task-manager.js"></script>
 </body>
 </html>
