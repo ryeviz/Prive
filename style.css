@@ -1,8 +1,9 @@
 /* Basic Style */
 body {
-background: url(bg.jpg);
-color: #ecf0f1;;
-font-family: Lato, sans-serif;
+background: url(bg.jpg) no-repeat center center fixed;
+  background-size: cover;
+  color: #ecf0f1;;
+  font-family: Lato, sans-serif;
 }
 
 .container {
