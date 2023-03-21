@@ -6,6 +6,15 @@ background: url(bg.jpg) no-repeat center center fixed;
   font-family: Lato, sans-serif;
 }
 
+header {
+  display: flex;
+  align-items: center;
+}
+
+img {
+  margin-right: 10px;
+}
+
 .container {
 display: block;
 width: 500px;
