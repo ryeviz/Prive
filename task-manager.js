@@ -8,10 +8,19 @@ function addTask(event) {
 	
 	// Get the input values from the form
 	const taskName = document.getElementById('task-name').value;
+	const taskDescription = document.getElementById('task-description').value;
 	const taskPriority = parseInt(document.getElementById('task-priority').value);
+	const taskDueDate = document.getElementById('task-due-date').value;
+	const taskStatus = document.getElementById('task-status').value;
 	
 	// Add the task to our array
-	tasks.push({name: taskName, priority: taskPriority});
+	tasks.push({
+		name: taskName,
+		description: taskDescription,
+		priority: taskPriority,
+		dueDate: taskDueDate,
+		status: taskStatus
+	});
 	
 	// Reset the form
 	event.target.reset();
@@ -36,7 +45,10 @@ function editTask(index) {
 	
 	// Set the input values in the form
 	document.getElementById('task-name').value = task.name;
+	document.getElementById('task-description').value = task.description;
 	document.getElementById('task-priority').value = task.priority;
+	document.getElementById('task-due-date').value = task.dueDate;
+	document.getElementById('task-status').value = task.status;
 	
 	// Remove the task from our array
 	tasks.splice(index, 1);
@@ -60,61 +72,39 @@ function refreshTaskList() {
 		const nameCell = row.insertCell();
 		nameCell.textContent = task.name;
 		
+		const descriptionCell = row.insertCell();
+		descriptionCell.textContent = task.description;
+		
 		const priorityCell = row.insertCell();
 		priorityCell.textContent = task.priority;
+		
+		const dueDateCell = row.insertCell();
+		dueDateCell.textContent = task.dueDate;
+		
+		const statusCell = row.insertCell();
+		statusCell.textContent = task.status;
 		
 		const editDeleteCell = row.insertCell();
 		const editButton = document.createElement('button');
 		editButton.textContent = 'Edit';
 		editButton.addEventListener('click', function() {
+			// Call the editTask function with the current task index when the button is clicked
+			editTask(index);
+		});
+		editDeleteCell.appendChild(editButton);
 		
-// Call the editTask function with the current task index when the button is clicked
-editTask(index);
-});
-editDeleteCell.appendChild(editButton);
-    	const deleteButton = document.createElement('button');
-	deleteButton.textContent = 'Delete';
-	deleteButton.addEventListener('click', function() {
-		// Call the deleteTask function with the current task index when the button is clicked
-		deleteTask(index);
+		const deleteButton = document.createElement('button');
+		deleteButton.textContent = 'Delete';
+		deleteButton.addEventListener('click', function() {
+			// Call the deleteTask function with the current task index when the button is clicked
+			deleteTask(index);
+		});
+		editDeleteCell.appendChild(deleteButton);
 	});
-	editDeleteCell.appendChild(deleteButton);
-});
+}
 
-  
-  // Clear the table body
-tableBody.innerHTML = '';
+// Add an event listener to the form to handle task submission
+document.getElementById('add-task-form').addEventListener('submit', addTask);
 
-// Filter tasks by priority
-const filteredTasks = tasks.filter(task => task.priority >= parseInt(document.getElementById('task-filter').value));
-
-// Sort filtered tasks by name
-filteredTasks.sort((a, b) => a.name.localeCompare(b.name));
-
-// Loop through our tasks and add them to the table
-filteredTasks.forEach(function(task, index) {
-	const row = tableBody.insertRow();
-	
-	const nameCell = row.insertCell();
-	nameCell.textContent = task.name;
-	
-	const priorityCell = row.insertCell();
-	priorityCell.textContent = task.priority;
-	
-	const editDeleteCell = row.insertCell();
-	const editButton = document.createElement('button');
-	editButton.textContent = 'Edit';
-	editButton.addEventListener('click', function() {
-		// Call the editTask function with the current task index when the button is clicked
-		editTask(index);
-	});
-	editDeleteCell.appendChild(editButton);
-	
-	const deleteButton = document.createElement('button');
-	deleteButton.textContent = 'Delete';
-	deleteButton.addEventListener('click', function() {
-		// Call the deleteTask function with the current task index when the button is clicked
-		deleteTask(index);
-	});
-	editDeleteCell.appendChild(deleteButton);
-});
+// Refresh the task list when the page loads
+refreshTaskList();
