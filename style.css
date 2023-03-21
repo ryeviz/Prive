@@ -130,7 +130,7 @@ color: #CF2323;
 
 /* Completed */
 #completed-tasks label {
-text-decoration: blink;
+text-decoration: none;
 color: #888;
 }
 
