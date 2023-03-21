@@ -11,6 +11,11 @@ width: 500px;
 margin: 50px auto 0;
 }
 
+h1 {
+  text-align: center;
+}
+
+
 ul {
 margin: 0;
 padding: 0;
