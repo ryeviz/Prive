@@ -56,12 +56,6 @@ button:hover {
   background-color: #ffa500;
 }
 
-.button-container {
-  display: flex;
-  justify-content: center;
-}
-
-
 /* Heading */
 h3,
 label[for='new-task'] {
@@ -107,7 +101,7 @@ width: 318px;
 }
 
 p>button:hover {
-color: #0FC57C;
+color: #c8edec;
 }
 
 /* Task list */
