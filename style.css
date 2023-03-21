@@ -56,6 +56,12 @@ button:hover {
   background-color: #ffa500;
 }
 
+.button-container {
+  display: flex;
+  justify-content: right;
+}
+
+
 /* Heading */
 h3,
 label[for='new-task'] {
