@@ -24,6 +24,10 @@ let createNewTaskElement = function (taskString) {
   // Create a label element with the given task string as its text content
   let label = document.createElement("label");
   label.innerText = taskString;
+	
+ // Create a span element for displaying the date and time
+  let dateTime = document.createElement("span");
+  dateTime.innerText = new Date().toLocaleString();
 
   // Create an input element for editing the task
   let editInput = document.createElement("input");
@@ -39,9 +43,10 @@ let createNewTaskElement = function (taskString) {
   deleteButton.innerText = "Delete";
   deleteButton.className = "delete";
 
-  // Append the checkbox, label, edit input, edit button, and delete button to the list item
+  // Append the checkbox, label, date/time, edit input, edit button, and delete button to the list item
   listItem.appendChild(checkBox);
   listItem.appendChild(label);
+  listItem.appendChild(dateTime);
   listItem.appendChild(editInput);
   listItem.appendChild(editButton);
   listItem.appendChild(deleteButton);
