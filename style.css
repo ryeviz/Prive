@@ -81,7 +81,7 @@ color: #888;
 }
 
 input[type="text"]:focus {
-color: #c8ede8;
+color: #888;
 }
 
 .middle {
@@ -101,7 +101,7 @@ width: 318px;
 }
 
 p>button:hover {
-color: #c8edec;
+color: #888;
 }
 
 /* Task list */
