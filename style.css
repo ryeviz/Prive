@@ -11,9 +11,12 @@ header {
   align-items: center;
 }
 
-img {
+.logo {
+  width: 2.5px; /* adjust to your desired width */
+  height: auto;
   margin-right: 10px;
 }
+
 
 .container {
 display: block;
