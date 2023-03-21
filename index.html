@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Task Manager</title>
-	<link rel="stylesheet" href="style.css">
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet"
+			href="style.css"
+			type="text/css"
+			media="screen"
+			charset="utf-8">
 </head>
+
 <body>
 	<div class="container">
-		<h1>Task Manager</h1>
-		<form id="add-task-form">
-			<label for="new-task">Add Task</label>
+		<p>
+			<label for="new-task" class="middle">Add Task</label>
 			<input id="new-task" type="text">
-			<button type="submit">Add Task</button>
-		</form>
-		<section>
-			<h2>To-do</h2>
-			<p>Click the checkbox if a task is completed</p>
-			<ul id="incomplete-tasks"></ul>
-		</section>
-		<section>
-			<h2>Completed Tasks</h2>
-			<ul id="completed-tasks"></ul>
-		</section>
+			<button>Add Task</button>
+		</p>
+		<h3 class="middle">To-do</h3>
+		<code>Click the checkbox if a task is completed</code>
+		<ul id="incomplete-tasks">
+		</ul>
+		<h3 class="middle">Completed Tasks</h3>
+		<ul id="completed-tasks">
+		</ul>
 	</div>
 	<script type="text/javascript" src="task-manager.js"></script>
 </body>
