@@ -59,7 +59,7 @@ button:hover {
 /* Heading */
 h3,
 label[for='new-task'] {
-color: #333;
+color: #c8ede8;
 font-weight: 700;
 font-size: 15px;
 padding: 30px 0 10px;
@@ -81,7 +81,7 @@ color: #888;
 }
 
 input[type="text"]:focus {
-color: #333;
+color: #c8ede8;
 }
 
 .middle {
