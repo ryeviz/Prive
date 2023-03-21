@@ -1,110 +1,282 @@
-// Define an array to hold our tasks
-let tasks = [];
+/* GLOBAL VARIABLES */
 
-// Define a function to add a new task
-function addTask(event) {
-	// Prevent the default form submission behavior
-	event.preventDefault();
-	
-	// Get the input values from the form
-	const taskName = document.getElementById('task-name').value;
-	const taskDescription = document.getElementById('task-description').value;
-	const taskPriority = parseInt(document.getElementById('task-priority').value);
-	const taskDueDate = document.getElementById('task-due-date').value;
-	const taskStatus = document.getElementById('task-status').value;
-	
-	// Add the task to our array
-	tasks.push({
-		name: taskName,
-		description: taskDescription,
-		priority: taskPriority,
-		dueDate: taskDueDate,
-		status: taskStatus
-	});
-	
-	// Reset the form
-	event.target.reset();
-	
-	// Refresh the task list
-	refreshTaskList();
-}
+	var container = document.getElementById('listContainer');
 
-// Define a function to delete a task
-function deleteTask(index) {
-	// Remove the task from our array
-	tasks.splice(index, 1);
-	
-	// Refresh the task list
-	refreshTaskList();
-}
+	var lists = [];
 
-// Define a function to edit a task
-function editTask(index) {
-	// Get the task object from our array
-	const task = tasks[index];
-	
-	// Set the input values in the form
-	document.getElementById('task-name').value = task.name;
-	document.getElementById('task-description').value = task.description;
-	document.getElementById('task-priority').value = task.priority;
-	document.getElementById('task-due-date').value = task.dueDate;
-	document.getElementById('task-status').value = task.status;
-	
-	// Remove the task from our array
-	tasks.splice(index, 1);
-	
-	// Refresh the task list
-	refreshTaskList();
-}
+	var cards = [];
 
-// Define a function to refresh the task list
-function refreshTaskList() {
-	// Get the table body element
-	const tableBody = document.getElementById('task-list').getElementsByTagName('tbody')[0];
+	/* LIST FUNCTIONS */
+
+	function addList(){
+
+		var title = document.getElementById('title').value;
+		document.getElementById("title").value = "";		
+		//console.log("In add");
+		createListDisplay(title);
+
+		savelists();
+		
+		return false;		
+	}
 	
-	// Clear the table body
-	tableBody.innerHTML = '';
+	function savelists(){
+
+		var t = [];
+		if (localStorage && lists[0] != undefined){
+			t = [];
+			for (var i in lists){
+				var p = lists[i];
+				t.push({
+					t : p.t,
+					id : p.id
+				});
+
+			}
+			console.log(t);
+			localStorage["lists"] = JSON.stringify(t);
+		}
+	}
 	
-	// Loop through our tasks and add them to the table
-	tasks.forEach(function(task, index) {
-		const row = tableBody.insertRow();
+	function savecards(){
+
+		var t = [];
+		if (localStorage && cards[0] != undefined){
+			t = [];
+			for (var i in cards){
+				var p = cards[i];
+				t.push({
+					c : p.c,
+					n : p.n,
+					id : p.id
+				});
+
+			}
+			console.log(t);
+			localStorage["cards"] = JSON.stringify(t);
+		}
+	}
+
+	
+	function loadlists(){
+
+		if (localStorage){
+
+			if (localStorage["lists"] != undefined){
+
+				var t = JSON.parse(localStorage["lists"]);
+				console.log("Load lists: "+ t);
+				for (var i in t){
+					var p = t[i];
+					
+					createListDisplay(p.t);
+				}
+			}
+		}
+	}
+	
+	function loadcards(){
+	
+	
+
+		if (localStorage){
+
+			if (localStorage["cards"] != undefined){
+			
+			
+
+				var t = JSON.parse(localStorage["cards"]);
+				console.log("Load cards: "+ t);
+				for (var i in t){
+					var p = t[i];
+					console.log("lists: "+ p.n);
+					createCardDisplay(p.c,p.n);
+				}
+			}
+		}
+	}
+
+
+
+	function deleteList(id){
+		//console.log(lists[id].d);
+		container.removeChild(lists[id].d);
+		lists[id] = lists[lists.length - 1];
+		lists.pop();
+
+		for (var i in lists){
+			lists[i].id = i;
+			lists[i].a.id = i;
+		}
+		savelists();
+	}
+
+	function createListDisplay(title){
+
 		
-		const nameCell = row.insertCell();
-		nameCell.textContent = task.name;
+		var d = document.createElement('div');
 		
-		const descriptionCell = row.insertCell();
-		descriptionCell.textContent = task.description;
-		
-		const priorityCell = row.insertCell();
-		priorityCell.textContent = task.priority;
-		
-		const dueDateCell = row.insertCell();
-		dueDateCell.textContent = task.dueDate;
-		
-		const statusCell = row.insertCell();
-		statusCell.textContent = task.status;
-		
-		const editDeleteCell = row.insertCell();
-		const editButton = document.createElement('button');
-		editButton.textContent = 'Edit';
-		editButton.addEventListener('click', function() {
-			// Call the editTask function with the current task index when the button is clicked
-			editTask(index);
+		d.id = "list-" + lists.length;  
+		var id = lists.length;
+		 
+		lists.push( {
+		d : d,	
+		t : title,
+		id : id
 		});
-		editDeleteCell.appendChild(editButton);
+		var p = lists[lists.length - 1];
 		
-		const deleteButton = document.createElement('button');
-		deleteButton.textContent = 'Delete';
-		deleteButton.addEventListener('click', function() {
-			// Call the deleteTask function with the current task index when the button is clicked
-			deleteTask(index);
+		d.className = "span3 well list"; 
+
+		var a = document.createElement('a');
+		a.id = id;
+		a.className = "close";
+		a.innerHTML = "x";
+		a.onclick = function(){
+
+			deleteList(this.id)
+		}
+		
+		d.appendChild(a);
+		p.a = a;
+
+		var h = document.createElement('h2');
+		h.className = "list_head";
+		h.innerHTML = title;
+		d.appendChild(h);
+		p.h = h;
+		
+		var t=document.createElement('div');
+		t.className = "card_box";
+		
+		
+		var c= document.createElement('div');
+		c.setAttribute('id', 'cards-'+id);
+		c.setAttribute('ondrop', 'drop(event)');
+		c.setAttribute('ondragover', 'allowDrop(event)');
+		t.appendChild(c);
+		
+
+		var cont = document.createElement('div');
+		cont.innerHTML = '<form onsubmit="return addCard('+id+')"><textarea class="span3" rows="3" cols="200" name="'+id+'_card_content" id="'+id+'_card_content" placeholder="Your task description" ></textarea><input type="hidden" id="card_no" name="card_no" value="'+id+'"><button type="submit" class="btn btn-info">Add Task</button></form>';
+		t.appendChild(cont);
+		d.appendChild(t);
+		//p.cont = cont;
+		container.appendChild(d);
+	}
+	
+	/* CARD FUNCTIONS */
+	
+	function addCard(no){
+		
+		var c = document.getElementById(no+'_card_content').value;
+		document.getElementById(no+'_card_content').value = "";
+		
+		//console.log("In add: " + c);
+		createCardDisplay(c,no);
+
+		savecards();
+		
+		return false;		
+	}
+	
+	function createCardDisplay(content,no){
+
+		var d = document.createElement('div');
+		//var no = document.getElementById('card_no').value;
+		//console.log(no);
+		var l = document.getElementById('cards-'+no);
+		
+		d.id = "card-" + cards.length;  
+		d.className = "card_item";
+		var id = cards.length;
+		 
+		cards.push( {
+		d : d,	
+		c : content,
+		n : no,
+		id : id
 		});
-		editDeleteCell.appendChild(deleteButton);
-	});
-}
+		var p = cards[cards.length - 1];
+		
+		var a = document.createElement('a');
+		a.id = id;
+		a.className = "close";
+		a.innerHTML = "x";
+		a.onclick = function(){
 
-// Add an event listener to the form to handle task submission
-document.getElementById('add-task-form').addEventListener('submit', addTask);
+			deleteCard(this.id,no)
+		}
+		
+		d.appendChild(a);
+		p.a = a;
 
-// Refresh the task list when the page loads
-refreshTaskList();
+		var h = document.createElement('p');
+		h.innerHTML = content;
+		h.setAttribute('contenteditable', true);
+		h.setAttribute('draggable', true);
+		h.setAttribute('ondragstart', 'drag(event)');
+		d.appendChild(h);
+		p.h = h;
+		l.appendChild(d);
+	}
+	
+	function deleteCard(id,no){
+		
+		var l = document.getElementById('cards-'+no);
+		console.log(cards[id].d);
+		l.removeChild(cards[id].d);
+		
+		cards[id] = cards[cards.length - 1];
+		cards.pop();
+
+		for (var i in cards){
+			cards[i].id = i;
+			cards[i].a.id = i;
+		}
+		savecards();
+	}
+
+	loadlists();
+	loadcards();
+	
+	/* Drag and Drop */
+	
+	function allowDrop(ev)
+	{
+		ev.preventDefault();
+	}
+
+	function drag(ev)
+	{
+		ev.dataTransfer.setData("Text",ev.target.id);
+	}
+
+	function drop(ev)
+	{
+		ev.preventDefault();
+		var data=ev.dataTransfer.getData("Text");
+		document.getElementById("cards-0").appendChild(document.getElementById(data));
+	}
+	
+	/* Custom */
+	
+	function toggleDiv(b){
+	console.log(b);
+	if(b==1)
+	{
+		document.getElementById("new_list").style.display = "block";
+		document.getElementById("new_list_button").style.display = "none";
+		}
+	else
+	{
+		document.getElementById("new_list_button").style.display = "block";
+		document.getElementById("new_list").style.display = "none";
+	}
+	}
+	
+	function toggleDivs(showDiv,hideDiv)
+	{
+		document.getElementById(showDiv).style.display = "block";
+		document.getElementById(hideDiv).style.display = "none";
+	}
