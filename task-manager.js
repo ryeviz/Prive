@@ -1,282 +1,155 @@
-/* GLOBAL VARIABLES */
+// Add a new task.
+let taskInput = document.getElementById("new-task");
 
-	var container = document.getElementById('listContainer');
+// first button
+let addButton = document.getElementsByTagName("button")[0];
 
-	var lists = [];
+// ul of #incomplete-tasks
+let incompleteTaskHolder = document.getElementById("incomplete-tasks");
 
-	var cards = [];
+// completed-tasks
+let completedTasksHolder = document.getElementById("completed-tasks");
 
-	/* LIST FUNCTIONS */
+/*---- Part 1 ----*/
+// function to create new task item
+let createNewTaskElement = function (taskString) {
 
-	function addList(){
+	let listItem = document.createElement("li");
 
-		var title = document.getElementById('title').value;
-		document.getElementById("title").value = "";		
-		//console.log("In add");
-		createListDisplay(title);
+	// input (checkbox)
+	let checkBox = document.createElement("input"); // checkbox
+	// label
+	let label = document.createElement("label"); // label
+	// input (text)
+	let editInput = document.createElement("input"); // text
+	// button.edit
+	let editButton = document.createElement("button"); // edit button
 
-		savelists();
-		
-		return false;		
-	}
-	
-	function savelists(){
+	// button.delete
+	let deleteButton = document.createElement("button"); // delete button
 
-		var t = [];
-		if (localStorage && lists[0] != undefined){
-			t = [];
-			for (var i in lists){
-				var p = lists[i];
-				t.push({
-					t : p.t,
-					id : p.id
-				});
+	label.innerText = taskString;
 
-			}
-			console.log(t);
-			localStorage["lists"] = JSON.stringify(t);
-		}
-	}
-	
-	function savecards(){
+	// Each elements, needs appending
+	checkBox.type = "checkbox";
+	editInput.type = "text";
 
-		var t = [];
-		if (localStorage && cards[0] != undefined){
-			t = [];
-			for (var i in cards){
-				var p = cards[i];
-				t.push({
-					c : p.c,
-					n : p.n,
-					id : p.id
-				});
 
-			}
-			console.log(t);
-			localStorage["cards"] = JSON.stringify(t);
-		}
-	}
+	// innerText encodes special characters, HTML does not.
+	editButton.innerText = "Edit";	
+	editButton.className = "edit";
+	deleteButton.innerText = "Delete";
+	deleteButton.className = "delete";
 
-	
-	function loadlists(){
+	// and appending.
+	listItem.appendChild(checkBox);
+	listItem.appendChild(label);
+	listItem.appendChild(editInput);
+	listItem.appendChild(editButton);
+	listItem.appendChild(deleteButton);
+	return listItem;
+}
+/*---- Part 2 ----*/
+let addTask = function () {
+	console.log("Add Task...");
 
-		if (localStorage){
+	let listItem = createNewTaskElement(taskInput.value);
 
-			if (localStorage["lists"] != undefined){
-
-				var t = JSON.parse(localStorage["lists"]);
-				console.log("Load lists: "+ t);
-				for (var i in t){
-					var p = t[i];
-					
-					createListDisplay(p.t);
-				}
-			}
-		}
-	}
-	
-	function loadcards(){
-	
-	
-
-		if (localStorage){
-
-			if (localStorage["cards"] != undefined){
-			
-			
-
-				var t = JSON.parse(localStorage["cards"]);
-				console.log("Load cards: "+ t);
-				for (var i in t){
-					var p = t[i];
-					console.log("lists: "+ p.n);
-					createCardDisplay(p.c,p.n);
-				}
-			}
-		}
+	if (taskInput.value == "") {
+		return;
 	}
 
+	// Append listItem to incompleteTaskHolder
+	incompleteTaskHolder.appendChild(listItem);
+	bindTaskEvents(listItem, taskCompleted);
+
+	taskInput.value = "";
+
+}
+
+/*---- Part 3 ----*/
+let editTask = function () {
+	console.log("Edit Task...");
+	console.log("Change 'edit' to 'save'");
 
 
-	function deleteList(id){
-		//console.log(lists[id].d);
-		container.removeChild(lists[id].d);
-		lists[id] = lists[lists.length - 1];
-		lists.pop();
+	let listItem = this.parentNode;
 
-		for (var i in lists){
-			lists[i].id = i;
-			lists[i].a.id = i;
-		}
-		savelists();
+	let editInput = listItem.querySelector('input[type=text]');
+	let label = listItem.querySelector("label");
+	let containsClass = listItem.classList.contains("editMode");
+	// If class of the parent is .editmode
+	if (containsClass) {
+		label.innerText = editInput.value;
+	} else {
+		editInput.value = label.innerText;
 	}
+	listItem.classList.toggle("editMode");
+}
 
-	function createListDisplay(title){
+/*---- Part 4 ----*/
+let deleteTask = function () {
+	console.log("Delete Task...");
 
-		
-		var d = document.createElement('div');
-		
-		d.id = "list-" + lists.length;  
-		var id = lists.length;
-		 
-		lists.push( {
-		d : d,	
-		t : title,
-		id : id
-		});
-		var p = lists[lists.length - 1];
-		
-		d.className = "span3 well list"; 
+	let listItem = this.parentNode;
+	let ul = listItem.parentNode;
+	// Remove the parent list item from the ul.
+	ul.removeChild(listItem);
 
-		var a = document.createElement('a');
-		a.id = id;
-		a.className = "close";
-		a.innerHTML = "x";
-		a.onclick = function(){
+}
 
-			deleteList(this.id)
-		}
-		
-		d.appendChild(a);
-		p.a = a;
+/*---- Part 5 ----*/
 
-		var h = document.createElement('h2');
-		h.className = "list_head";
-		h.innerHTML = title;
-		d.appendChild(h);
-		p.h = h;
-		
-		var t=document.createElement('div');
-		t.className = "card_box";
-		
-		
-		var c= document.createElement('div');
-		c.setAttribute('id', 'cards-'+id);
-		c.setAttribute('ondrop', 'drop(event)');
-		c.setAttribute('ondragover', 'allowDrop(event)');
-		t.appendChild(c);
-		
+let taskCompleted = function () {
+	console.log("Complete Task...");
 
-		var cont = document.createElement('div');
-		cont.innerHTML = '<form onsubmit="return addCard('+id+')"><textarea class="span3" rows="3" cols="200" name="'+id+'_card_content" id="'+id+'_card_content" placeholder="Your task description" ></textarea><input type="hidden" id="card_no" name="card_no" value="'+id+'"><button type="submit" class="btn btn-info">Add Task</button></form>';
-		t.appendChild(cont);
-		d.appendChild(t);
-		//p.cont = cont;
-		container.appendChild(d);
-	}
-	
-	/* CARD FUNCTIONS */
-	
-	function addCard(no){
-		
-		var c = document.getElementById(no+'_card_content').value;
-		document.getElementById(no+'_card_content').value = "";
-		
-		//console.log("In add: " + c);
-		createCardDisplay(c,no);
+	// Append the task list item to the #completed-tasks
+	let listItem = this.parentNode;
+	completedTasksHolder.appendChild(listItem);
+	bindTaskEvents(listItem, taskIncomplete);
 
-		savecards();
-		
-		return false;		
-	}
-	
-	function createCardDisplay(content,no){
+}
 
-		var d = document.createElement('div');
-		//var no = document.getElementById('card_no').value;
-		//console.log(no);
-		var l = document.getElementById('cards-'+no);
-		
-		d.id = "card-" + cards.length;  
-		d.className = "card_item";
-		var id = cards.length;
-		 
-		cards.push( {
-		d : d,	
-		c : content,
-		n : no,
-		id : id
-		});
-		var p = cards[cards.length - 1];
-		
-		var a = document.createElement('a');
-		a.id = id;
-		a.className = "close";
-		a.innerHTML = "x";
-		a.onclick = function(){
+/*---- Part 6 ----*/
+let taskIncomplete = function () {
+	console.log("Incomplete Task...");
+	// Mark task as incomplete.
+	let listItem = this.parentNode;
+	incompleteTaskHolder.appendChild(listItem);
+	bindTaskEvents(listItem, taskCompleted);
+}
 
-			deleteCard(this.id,no)
-		}
-		
-		d.appendChild(a);
-		p.a = a;
+/*---- Part 7 ----*/
+addButton.onclick = addTask;
+addButton.addEventListener("click", addTask);
 
-		var h = document.createElement('p');
-		h.innerHTML = content;
-		h.setAttribute('contenteditable', true);
-		h.setAttribute('draggable', true);
-		h.setAttribute('ondragstart', 'drag(event)');
-		d.appendChild(h);
-		p.h = h;
-		l.appendChild(d);
-	}
-	
-	function deleteCard(id,no){
-		
-		var l = document.getElementById('cards-'+no);
-		console.log(cards[id].d);
-		l.removeChild(cards[id].d);
-		
-		cards[id] = cards[cards.length - 1];
-		cards.pop();
+let bindTaskEvents = function (taskListItem, checkBoxEventHandler) {
+	console.log("bind list item events");
+	// select ListItems children
+	let checkBox = taskListItem.querySelector("input[type=checkbox]");
+	let editButton = taskListItem.querySelector("button.edit");
+	let deleteButton = taskListItem.querySelector("button.delete");
 
-		for (var i in cards){
-			cards[i].id = i;
-			cards[i].a.id = i;
-		}
-		savecards();
-	}
 
-	loadlists();
-	loadcards();
-	
-	/* Drag and Drop */
-	
-	function allowDrop(ev)
-	{
-		ev.preventDefault();
-	}
+	// Bind editTask to edit button.
+	editButton.onclick = editTask;
+	// Bind deleteTask to delete button.
+	deleteButton.onclick = deleteTask;
+	// Bind taskCompleted to checkBoxEventHandler.
+	checkBox.onchange = checkBoxEventHandler;
+}
 
-	function drag(ev)
-	{
-		ev.dataTransfer.setData("Text",ev.target.id);
-	}
+/*---- Part 8 ----*/
+// cycle over incompleteTaskHolder ul list items
+// for each list item
+for (let i = 0; i < incompleteTaskHolder.children.length; i++) {
 
-	function drop(ev)
-	{
-		ev.preventDefault();
-		var data=ev.dataTransfer.getData("Text");
-		document.getElementById("cards-0").appendChild(document.getElementById(data));
-	}
-	
-	/* Custom */
-	
-	function toggleDiv(b){
-	console.log(b);
-	if(b==1)
-	{
-		document.getElementById("new_list").style.display = "block";
-		document.getElementById("new_list_button").style.display = "none";
-		}
-	else
-	{
-		document.getElementById("new_list_button").style.display = "block";
-		document.getElementById("new_list").style.display = "none";
-	}
-	}
-	
-	function toggleDivs(showDiv,hideDiv)
-	{
-		document.getElementById(showDiv).style.display = "block";
-		document.getElementById(hideDiv).style.display = "none";
-	}
+	// bind events to list items children(tasksCompleted)
+	bindTaskEvents(incompleteTaskHolder.children[i], taskCompleted);
+}
+
+// cycle over completedTasksHolder ul list items
+for (let i = 0; i < completedTasksHolder.children.length; i++) {
+	// bind events to list items children(tasksIncompleted)
+	bindTaskEvents(completedTasksHolder.children[i], taskIncomplete);
+}
