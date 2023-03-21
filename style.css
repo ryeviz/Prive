@@ -1,7 +1,6 @@
 /* Basic Style */
 body {
-background: url(bg.jpg) no-repeat center center fixed;
-  background-size: cover;
+background: url(bg.jpg);
   color: #ecf0f1;;
   font-family: Lato, Helvetica;
 }
