@@ -1,91 +1,106 @@
-// Add a new task.
+// Get reference to the input field for new tasks
 let taskInput = document.getElementById("new-task");
 
-// first button
+// Get reference to the "Add" button
 let addButton = document.getElementsByTagName("button")[0];
 
-// ul of #incomplete-tasks
+// Get reference to the "Incomplete Tasks" ul element
 let incompleteTaskHolder = document.getElementById("incomplete-tasks");
 
-// completed-tasks
+// Get reference to the "Completed Tasks" ul element
 let completedTasksHolder = document.getElementById("completed-tasks");
 
-/*---- Part 1 ----*/
-// function to create new task item
+/*---- Part 1: Create new task item ----*/
+
+// Define a function to create a new task item with the given task string
 let createNewTaskElement = function (taskString) {
+  // Create a new list item element
+  let listItem = document.createElement("li");
 
-	let listItem = document.createElement("li");
+  // Create a checkbox input element
+  let checkBox = document.createElement("input");
+  checkBox.type = "checkbox";
 
-	// input (checkbox)
-	let checkBox = document.createElement("input"); // checkbox
-	// label
-	let label = document.createElement("label"); // label
-	// input (text)
-	let editInput = document.createElement("input"); // text
-	// button.edit
-	let editButton = document.createElement("button"); // edit button
+  // Create a label element with the given task string as its text content
+  let label = document.createElement("label");
+  label.innerText = taskString;
 
-	// button.delete
-	let deleteButton = document.createElement("button"); // delete button
+  // Create an input element for editing the task
+  let editInput = document.createElement("input");
+  editInput.type = "text";
 
-	label.innerText = taskString;
+  // Create an edit button element
+  let editButton = document.createElement("button");
+  editButton.innerText = "Edit";
+  editButton.className = "edit";
 
-	// Each elements, needs appending
-	checkBox.type = "checkbox";
-	editInput.type = "text";
+  // Create a delete button element
+  let deleteButton = document.createElement("button");
+  deleteButton.innerText = "Delete";
+  deleteButton.className = "delete";
 
+  // Append the checkbox, label, edit input, edit button, and delete button to the list item
+  listItem.appendChild(checkBox);
+  listItem.appendChild(label);
+  listItem.appendChild(editInput);
+  listItem.appendChild(editButton);
+  listItem.appendChild(deleteButton);
 
-	// innerText encodes special characters, HTML does not.
-	editButton.innerText = "Edit";	
-	editButton.className = "edit";
-	deleteButton.innerText = "Delete";
-	deleteButton.className = "delete";
+  return listItem;
+};
 
-	// and appending.
-	listItem.appendChild(checkBox);
-	listItem.appendChild(label);
-	listItem.appendChild(editInput);
-	listItem.appendChild(editButton);
-	listItem.appendChild(deleteButton);
-	return listItem;
-}
-/*---- Part 2 ----*/
+/*---- Part 2: Add a new task ----*/
+
+// Define a function to add a new task when the "Add" button is clicked
 let addTask = function () {
-	console.log("Add Task...");
+  console.log("Add Task...");
 
-	let listItem = createNewTaskElement(taskInput.value);
+  // Create a new list item with the text from the task input field
+  let listItem = createNewTaskElement(taskInput.value);
 
-	if (taskInput.value == "") {
-		return;
-	}
+  // Only add the new task if the input field is not empty
+  if (taskInput.value !== "") {
+    // Append the new task to the "Incomplete Tasks" list
+    incompleteTaskHolder.appendChild(listItem);
 
-	// Append listItem to incompleteTaskHolder
-	incompleteTaskHolder.appendChild(listItem);
-	bindTaskEvents(listItem, taskCompleted);
+    // Bind events to the new task
+    bindTaskEvents(listItem, taskCompleted);
 
-	taskInput.value = "";
+    // Clear the input field
+    taskInput.value = "";
+  }
+};
 
-}
+// Bind the addTask function to the "Add" button
+addButton.onclick = addTask;
 
-/*---- Part 3 ----*/
+/*---- Part 3: Edit a task ----*/
+
+// Define a function to switch a task from "edit mode" to "display mode"
 let editTask = function () {
-	console.log("Edit Task...");
-	console.log("Change 'edit' to 'save'");
+  console.log("Edit Task...");
+  console.log("Change 'edit' to 'save'");
 
+  let listItem = this.parentNode;
 
-	let listItem = this.parentNode;
+  let editInput = listItem.querySelector("input[type=text]");
+  let label = listItem.querySelector("label");
+  let containsClass = listItem.classList.contains("editMode");
 
-	let editInput = listItem.querySelector('input[type=text]');
-	let label = listItem.querySelector("label");
-	let containsClass = listItem.classList.contains("editMode");
-	// If class of the parent is .editmode
-	if (containsClass) {
-		label.innerText = editInput.value;
-	} else {
-		editInput.value = label.innerText;
-	}
-	listItem.classList.toggle("editMode");
-}
+  // If the list item is already in "edit mode", switch it back to "display mode" and update the label text
+  if (containsClass) {
+    label.innerText = editInput.value;
+  }
+  // If the list item is not in "edit mode", switch it to "edit mode" and update the edit input value
+  else {
+    editInput.value = label.innerText;
+  }
+
+  // Toggle the "edit mode" class on the list item
+  listItem.classList.toggle("editMode");
+};
+
+/*---- Part 4: Delete a task ----*/
 
 /*---- Part 4 ----*/
 let deleteTask = function () {
