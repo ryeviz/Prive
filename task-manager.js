@@ -173,3 +173,33 @@ for (let i = 0; i < completedTasksHolder.children.length; i++) {
 	// bind events to list items children(tasksIncompleted)
 	bindTaskEvents(completedTasksHolder.children[i], taskIncomplete);
 }
+
+const sortTasks = (tasks, sortBy) => {
+  return tasks.sort((a, b) => {
+    switch (sortBy) {
+      case 'created':
+        return new Date(a.created) - new Date(b.created);
+      case 'due':
+        return new Date(a.due) - new Date(b.due);
+      case 'priority':
+        return b.priority - a.priority;
+      default:
+        return 0;
+    }
+  });
+}
+
+const renderTasks = (tasks) => {
+  // Sort tasks by selected sort method
+  const sortBy = document.getElementById('sort-by').value;
+  const sortedTasks = sortTasks(tasks, sortBy);
+  
+  // Render tasks in sorted order
+  // ...
+}
+
+// Add event listener to re-render tasks when sorting method changes
+const sortBySelect = document.getElementById('sort-by');
+sortBySelect.addEventListener('change', () => {
+  renderTasks(tasks);
+});
