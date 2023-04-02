@@ -1,14 +1,15 @@
 /* Basic Style */
 body {
   background: #000000;
-  color: #ecf0f1;;
+  color: #ecf0f1;
   font-family: Lato, Helvetica;
 }
 
 .container {
   display: block;
-  width: 500px;
+  max-width: 700px;
   margin: 50px auto 0;
+  padding: 0 20px;
 }
 
 h1 {
@@ -32,7 +33,6 @@ textarea:focus {
   color: #ecf0f1;
 }
 
-
 ul {
   margin: 0;
   padding: 0;
@@ -49,7 +49,7 @@ h3 {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 input,
@@ -88,7 +88,7 @@ label[for='new-task'] {
   text-transform: capitalize;
 }
 
-input[type="text"] {
+input[type='text'] {
   margin: 0;
   font-size: 18px;
   line-height: 18px;
@@ -101,7 +101,7 @@ input[type="text"] {
   color: #ecf0f1;
 }
 
-input[type="text"]:focus {
+input[type='text']:focus {
   color: #ecf0f1;
 }
 
@@ -113,13 +113,13 @@ input[type="text"]:focus {
   font-size: 30px;
 }
 
-.middle input[type="text"],
+.middle input[type='text'],
 .middle button {
   display: inline-block;
   vertical-align: middle;
 }
 
-.middle input[type="text"] {
+.middle input[type='text'] {
   width: 70%;
   margin-right: 10px;
 }
@@ -131,7 +131,6 @@ input[type="text"]:focus {
 h3 {
   color: #ecf0f1;
 }
-
 
 /* New Task */
 label[for='new-task'] {
@@ -148,6 +147,7 @@ input#new-task {
 p>button:hover {
   color: #ecf0f1;
 }
+
 
 /* Task list */
 li {
