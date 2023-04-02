@@ -1,14 +1,14 @@
 /* Basic Style */
 body {
-background: url(bg.jpg);
+  background: #000000;
   color: #ecf0f1;;
   font-family: Lato, Helvetica;
 }
 
 .container {
-display: block;
-width: 500px;
-margin: 50px auto 0;
+  display: block;
+  width: 500px;
+  margin: 50px auto 0;
 }
 
 h1 {
@@ -25,27 +25,27 @@ textarea {
   background: #fff;
   border-radius: 6px;
   font-family: Lato, Helvetica;
-  color: #888;
+  color: #ecf0f1;
 }
 
 textarea:focus {
-  color: #888;
+  color: #ecf0f1;
 }
 
 
 ul {
-margin: 0;
-padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 li * {
-float: left;
+  float: left;
 }
 
 li,
 h3 {
-clear: both;
-list-style: none;
+  clear: both;
+  list-style: none;
 }
 
 code {
@@ -54,14 +54,14 @@ code {
 
 input,
 button {
-outline: none;
+  outline: none;
 }
 
 button {
-  background-color: #000000;
+  background-color: #ecf0f1;
   background-image: linear-gradient(to right, #B2A4D4, #E6C7C2);
   border-radius: 50px;
-  color: white;
+  color: #000000;
   padding: 10px 20px;
   text-decoration: none;
   display: inline-block;
@@ -74,38 +74,39 @@ button {
 
 button:hover {
   background-color: #474154;
+  color: #ecf0f1;
 }
 
 /* Heading */
 h3,
 label[for='new-task'] {
-color: #c8ede8;
-font-weight: 700;
-font-size: 15px;
-padding: 30px 0 10px;
-margin: 0;
-text-transform: capitalize;
+  color: #c8ede8;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 30px 0 10px;
+  margin: 0;
+  text-transform: capitalize;
 }
 
 input[type="text"] {
-margin: 0;
-font-size: 18px;
-line-height: 18px;
-height: 18px;
-padding: 10px;
-border: 1px solid #ddd;
-background: #fff;
-border-radius: 6px;
-font-family: Lato, Helvetica;
-color: #888;
+  margin: 0;
+  font-size: 18px;
+  line-height: 18px;
+  height: 18px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 6px;
+  font-family: Lato, Helvetica;
+  color: #ecf0f1;
 }
 
 input[type="text"]:focus {
-color: #888;
+  color: #ecf0f1;
 }
 
 .middle {
-text-align: center;
+  text-align: center;
 }
 
 .middle input[type="text"],
@@ -124,68 +125,28 @@ text-align: center;
 }
 
 h3 {
-  color: #fff;
+  color: #ecf0f1;
 }
 
 
 /* New Task */
 label[for='new-task'] {
-display: block;
-margin: 0 0 20px;
+  display: block;
+  margin: 0 0 20px;
 }
 
 input#new-task {
-float: right;
-width: 318px;
+  float: right;
+  width: 318px;
+  color: #ecf0f1;
 }
 
 p>button:hover {
-color: #888;
+  color: #ecf0f1;
 }
 
 /* Task list */
 li {
-overflow: hidden;
-padding: 20px 0;
-border-bottom: 1px solid #eee;
-}
-
-li>input[type="checkbox"] {
-margin: 0 10px;
-position: relative;
-top: 15px;
-}
-
-li>label {
-font-size: 18px;
-line-height: 40px;
-width: 237px;
-padding: 0 0 0 11px;
-}
-
-li>input[type="text"] {
-width: 226px;
-}
-
-li>.delete:hover {
-color: #CF2323;
-}
-
-/* Completed */
-#completed-tasks label {
-text-decoration: none;
-color: #888;
-}
-
-/* Edit Task */
-ul li input[type=text] {
-display: none;
-}
-
-ul li.editMode input[type=text] {
-display: block;
-}
-
-ul li.editMode label {
-display: none;
-}
+  overflow: hidden;
+  padding: 20px 0;
+  border-bottom
