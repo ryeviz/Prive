@@ -109,6 +109,10 @@ input[type="text"]:focus {
   text-align: center;
 }
 
+.middle label {
+  font-size: 30px;
+}
+
 .middle input[type="text"],
 .middle button {
   display: inline-block;
