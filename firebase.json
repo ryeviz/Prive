@@ -1,0 +1,9 @@
+{
+  "hosting": {
+    "site": "task-manager-ax0u8",
+
+    "public": "public",
+    ...
+  }
+}
+//firebase deploy --only hosting:task-manager-ax0u8
